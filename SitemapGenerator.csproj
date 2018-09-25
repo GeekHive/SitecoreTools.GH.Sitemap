@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA856A3D-9EDC-48CA-93D3-2F9662EC87C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SitemapGenerator</RootNamespace>
+    <AssemblyName>SitemapGenerator</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Sitecore.ExperienceEditor" />
+    <Reference Include="Sitecore.Kernel" />
+    <Reference Include="Sitecore.Logging" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\GenerateSitemapCommand.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Handlers\GroupedSiteSitemapRequestHandler.cs" />
+    <Compile Include="Handlers\SitemapRequestHandler.cs" />
+    <Compile Include="LocalEvents\GenerateSitemapLocalEvent.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Objects\Sitemap\SitemapItem.cs" />
+    <Compile Include="Objects\Sitemap\SitemapLanguage.cs" />
+    <Compile Include="Objects\Xml\Sitemap.cs" />
+    <Compile Include="Objects\Xml\SitemapIndex.cs" />
+    <Compile Include="PipelineArgs\SitemapBuildSitemapXmlArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapGetModifiedDateArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapGetItemsArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapGetSitemapPathArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapWriteFileArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapSiteArgs.cs" />
+    <Compile Include="Objects\Xml\Link.cs" />
+    <Compile Include="Objects\Xml\Url.cs" />
+    <Compile Include="Objects\Xml\UrlSet.cs" />
+    <Compile Include="PipelineArgs\SitemapItemLinkArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapGetItemArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapValidateItemVersionArgs.cs" />
+    <Compile Include="PipelineArgs\SitemapGenerateArgs.cs" />
+    <Compile Include="Pipelines\BuildSiteXml\BuildXmlPerSite.cs" />
+    <Compile Include="Pipelines\BuildSiteXml\GetModifiedDate.cs" />
+    <Compile Include="Pipelines\GetItemLink\ResolveUrl.cs" />
+    <Compile Include="Pipelines\GetItems\IsWildcard.cs" />
+    <Compile Include="Pipelines\GetItems\TraverseTree.cs" />
+    <Compile Include="Pipelines\GetSitemapPath\GetSiteSpecificPath.cs" />
+    <Compile Include="Pipelines\Initialize\RemoteEventSubscriber.cs" />
+    <Compile Include="Pipelines\Processitem\AddItemVersions.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\GetGroupLanguages.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\OrderByPath.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\WriteSitemaps.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\GetItems.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\GetSites.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\GetLanguages.cs" />
+    <Compile Include="Pipelines\GetLanguages\ValidLanguages.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\ResolveRelativeSitemapDirectory.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\VerifyGlobalDirectoryAndCreate.cs" />
+    <Compile Include="Pipelines\SitemapGenerate\ResolveGlobalDirectory.cs" />
+    <Compile Include="Pipelines\ValidateItemVersion\HasPresentationDetails.cs" />
+    <Compile Include="Pipelines\WriteFile\WriteSitemapXmlFile.cs" />
+    <Compile Include="Pipelines\BuildSiteXml\ModifyXmlString.cs" />
+    <Compile Include="Pipelines\BuildSiteXml\ConvertToXmlString.cs" />
+    <Compile Include="Pipelines\WriteSitemaps\BuildSitemapsXml.cs" />
+    <Compile Include="Pipelines\WriteSitemaps\RefreshSitemapDirectory.cs" />
+    <Compile Include="Pipelines\WriteSitemaps\WriteFiles.cs" />
+    <Compile Include="Pipelines\WriteSitemaps\WriteIndexFile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteEvents\GenerateSitemapRemoteEvent.cs" />
+    <Compile Include="SitemapUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sitemap.example.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
