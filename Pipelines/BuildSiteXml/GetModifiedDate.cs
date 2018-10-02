@@ -39,12 +39,19 @@ namespace SitemapGenerator.Pipelines.BuildSiteXml
                 }
             }
 
+            if (!args.LanguageFallbackEnabled)
+            {
+                args.LastModified = DateTime.MinValue;
+                return;
+            }
+
             var fallbackLanguage = LanguageFallbackManager.GetFallbackLanguage(args.Item.Language, args.Item.Database);
 
             if (fallbackLanguage == null)
+            {
                 args.LastModified = DateTime.MinValue;
-            if (fallbackLanguage == null || args.LastModified != null)
                 return;
+            }
 
             args.Item = args.Item.Database.GetItem(args.Item.ID, fallbackLanguage);
             Process(args);

@@ -9,11 +9,17 @@ namespace SitemapGenerator.PipelineArgs
 
         public DateTime LastModified { get; set; }
 
-        
-        public SitemapGetModifiedDateArgs(Item item, DateTime lastModified)
+        public bool LanguageFallbackEnabled { get; set; }
+
+        public SitemapGetModifiedDateArgs(Item item, DateTime lastModified) : this(item, lastModified, true)
+        {
+        }
+
+        public SitemapGetModifiedDateArgs(Item item, DateTime lastModified, bool languageFallbackEnabled)
         {
             Item = item;
             LastModified = lastModified;
+            LanguageFallbackEnabled = languageFallbackEnabled;
         }
     }
 }

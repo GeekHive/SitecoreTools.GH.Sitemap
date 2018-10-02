@@ -66,7 +66,8 @@ namespace SitemapGenerator.Pipelines.BuildSiteXml
                 //  <xhtml:link rel="alternate" hreflang="fr-ca" href="http://www.site.com/fr" />
                 //</url>
                 //
-                var url = BuildUrl(links, sitemapItem);
+
+                var url = BuildUrl(links, sitemapItem, args.SitemapSiteArgs.SiteContext.SiteInfo.EnableItemLanguageFallback);
 
                 urlSet.Url.Add(url);
             }
@@ -74,7 +75,7 @@ namespace SitemapGenerator.Pipelines.BuildSiteXml
             args.SitemapSiteArgs.XmlObjects = urlSet;
         }
 
-        private static Url BuildUrl(List<Link> links, SitemapItem sitemapItem)
+        private static Url BuildUrl(List<Link> links, SitemapItem sitemapItem, bool languageFallbackEnabled)
         {
             var matchedItem = links.FirstOrDefault(link => link.Item == sitemapItem.Item);
 
@@ -87,7 +88,7 @@ namespace SitemapGenerator.Pipelines.BuildSiteXml
 
             var loc = matchedItem.Href;
 
-            var sitemapGetModifiedDateArgs = new SitemapGetModifiedDateArgs(sitemapItem.Item, DateTime.MinValue);
+            var sitemapGetModifiedDateArgs = new SitemapGetModifiedDateArgs(sitemapItem.Item, DateTime.MinValue, languageFallbackEnabled);
             CorePipeline.Run("sitemap.GetModifiedDate", sitemapGetModifiedDateArgs);
 
             var lastmod = sitemapGetModifiedDateArgs.LastModified;
